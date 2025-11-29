@@ -1,637 +1,595 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رسالة حب</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&family=Tajawal:wght@300;400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      :root {
-        --primary-pink: #e91e63;
-        --light-pink: #f8bbd0;
-        --soft-pink: #fce4ec;
-        --dark-pink: #c2185b;
-        --bg-gradient: linear-gradient(
-          135deg,
-          #fce4ec 0%,
-          #f8bbd0 50%,
-          #f48fb1 100%
-        );
-        --shadow-pink: rgba(233, 30, 99, 0.3);
-      }
-
-      body {
-        font-family: "Cairo", "Tajawal", sans-serif;
-        background: var(--bg-gradient);
-        min-height: 100vh;
-        overflow-x: hidden;
-        position: relative;
-      }
-
-      /* Floating Hearts Animation */
-      .hearts-bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 0;
-        overflow: hidden;
-      }
-
-      .heart-float {
-        position: absolute;
-        font-size: 20px;
-        opacity: 0.3;
-        animation: float-up 10s infinite ease-in;
-      }
-
-      @keyframes float-up {
-        0% {
-          transform: translateY(100vh) rotate(0deg);
-          opacity: 0;
-        }
-        10% {
-          opacity: 0.3;
-        }
-        90% {
-          opacity: 0.3;
-        }
-        100% {
-          transform: translateY(-100px) rotate(360deg);
-          opacity: 0;
-        }
-      }
-
-      /* Main Container */
-      .container {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 20px;
-      }
-
-      .page {
-        display: none;
-        animation: fadeIn 1s ease-in;
-      }
-
-      .page.active {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: scale(0.95);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-
-      /* Lock Screen */
-      .lock-screen {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        padding: 60px 40px;
-        border-radius: 40px;
-        box-shadow: 0 20px 60px var(--shadow-pink);
-        text-align: center;
-        max-width: 450px;
-        width: 100%;
-        border: 2px solid rgba(233, 30, 99, 0.2);
-      }
-
-      .lock-icon {
-        font-size: 80px;
-        margin-bottom: 30px;
-        animation: pulse 2s infinite;
-      }
-
-      @keyframes pulse {
-        0%,
-        100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.1);
-        }
-      }
-
-      .lock-title {
-        font-family: "Amiri", serif;
-        font-size: 42px;
-        font-weight: 700;
-        color: var(--primary-pink);
-        margin-bottom: 15px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .lock-subtitle {
-        font-size: 18px;
-        color: var(--dark-pink);
-        margin-bottom: 35px;
-        font-weight: 400;
-      }
-
-      .password-input {
-        width: 100%;
-        padding: 18px 25px;
-        font-size: 18px;
-        font-family: "Cairo", sans-serif;
-        border: 2px solid var(--light-pink);
-        border-radius: 50px;
-        outline: none;
-        text-align: center;
-        margin-bottom: 25px;
-        transition: all 0.3s;
-        background: white;
-      }
-
-      .password-input:focus {
-        border-color: var(--primary-pink);
-        box-shadow: 0 0 20px var(--shadow-pink);
-      }
-
-      .unlock-btn {
-        width: 100%;
-        padding: 18px;
-        font-size: 20px;
-        font-family: "Cairo", sans-serif;
-        font-weight: 600;
-        color: white;
-        background: linear-gradient(
-          135deg,
-          var(--primary-pink),
-          var(--dark-pink)
-        );
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s;
-        box-shadow: 0 8px 20px var(--shadow-pink);
-      }
-
-      .unlock-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 30px var(--shadow-pink);
-      }
-
-      .unlock-btn:active {
-        transform: translateY(0);
-      }
-
-      .error-msg {
-        color: #d32f2f;
-        font-size: 14px;
-        margin-top: 10px;
-        display: none;
-      }
-
-      /* Content Card */
-      .content-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        padding: 50px 40px;
-        border-radius: 40px;
-        box-shadow: 0 20px 60px var(--shadow-pink);
-        max-width: 600px;
-        width: 100%;
-        border: 2px solid rgba(233, 30, 99, 0.2);
-        text-align: center;
-      }
-
-      .content-title {
-        font-family: "Amiri", serif;
-        font-size: 48px;
-        font-weight: 700;
-        color: var(--primary-pink);
-        margin-bottom: 40px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .content-text {
-        font-family: "Amiri", serif;
-        font-size: 24px;
-        line-height: 2.2;
-        color: #333;
-        margin-bottom: 20px;
-        text-align: center;
-      }
-
-      .action-btn {
-        margin-top: 40px;
-        padding: 18px 50px;
-        font-size: 20px;
-        font-family: "Cairo", sans-serif;
-        font-weight: 600;
-        color: white;
-        background: linear-gradient(
-          135deg,
-          var(--primary-pink),
-          var(--dark-pink)
-        );
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s;
-        box-shadow: 0 8px 20px var(--shadow-pink);
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .action-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 30px var(--shadow-pink);
-      }
-
-      /* Memories Page */
-      .memories-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        padding: 50px 30px;
-        border-radius: 40px;
-        box-shadow: 0 20px 60px var(--shadow-pink);
-        max-width: 800px;
-        width: 100%;
-        border: 2px solid rgba(233, 30, 99, 0.2);
-      }
-
-      .memories-title {
-        font-family: "Amiri", serif;
-        font-size: 48px;
-        font-weight: 700;
-        color: var(--primary-pink);
-        text-align: center;
-        margin-bottom: 40px;
-        font-style: italic;
-      }
-
-      .memory-item {
-        margin-bottom: 40px;
-        text-align: center;
-        animation: slideIn 0.8s ease-out;
-      }
-
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateX(50px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      .memory-image {
-        width: 100%;
-        max-width: 500px;
-        height: 300px;
-        object-fit: cover;
-        border-radius: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        border: 3px solid white;
-      }
-
-      .video-container {
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto 20px;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        border: 3px solid white;
-      }
-
-      .memory-caption {
-        font-family: "Amiri", serif;
-        font-size: 22px;
-        color: var(--dark-pink);
-        margin-top: 15px;
-        font-weight: 600;
-      }
-
-      .quote-text {
-        font-family: "Amiri", serif;
-        font-size: 20px;
-        color: #555;
-        margin: 15px 0;
-        line-height: 1.8;
-        font-style: italic;
-      }
-
-      /* Restart Page */
-      .restart-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        padding: 60px 40px;
-        border-radius: 40px;
-        box-shadow: 0 20px 60px var(--shadow-pink);
-        max-width: 600px;
-        width: 100%;
-        border: 2px solid rgba(233, 30, 99, 0.2);
-        text-align: center;
-      }
-
-      .restart-name {
-        font-family: "Amiri", serif;
-        font-size: 52px;
-        font-weight: 700;
-        color: var(--primary-pink);
-        margin-bottom: 40px;
-      }
-
-      .restart-btn {
-        margin-top: 50px;
-        padding: 18px 60px;
-        font-size: 22px;
-        font-family: "Cairo", sans-serif;
-        font-weight: 600;
-        color: white;
-        background: linear-gradient(
-          135deg,
-          var(--primary-pink),
-          var(--dark-pink)
-        );
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s;
-        box-shadow: 0 8px 20px var(--shadow-pink);
-      }
-
-      .restart-btn:hover {
-        transform: translateY(-2px) scale(1.05);
-        box-shadow: 0 12px 30px var(--shadow-pink);
-      }
-
-      .watermark {
-        font-family: "Amiri", serif;
-        font-size: 16px;
-        color: var(--dark-pink);
-        margin-top: 30px;
-        opacity: 0.7;
-        font-style: italic;
-      }
-
-      @media (max-width: 768px) {
-        .lock-screen,
-        .content-card,
-        .memories-card,
-        .restart-card {
-          padding: 40px 25px;
-          border-radius: 30px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .lock-title,
-        .content-title,
-        .memories-title,
-        .restart-name {
-          font-size: 36px;
+        :root {
+            --primary-pink: #e91e63;
+            --light-pink: #f8bbd0;
+            --soft-pink: #fce4ec;
+            --dark-pink: #c2185b;
+            --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+            --shadow-pink: rgba(233, 30, 99, 0.3);
         }
 
-        .content-text,
-        .memory-caption,
-        .quote-text {
-          font-size: 18px;
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating Hearts Animation */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.3;
+            animation: float-up 10s infinite ease-in;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .page.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Lock Screen */
+        .lock-screen {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 60px 40px;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px var(--shadow-pink);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            border: 2px solid rgba(233, 30, 99, 0.2);
+        }
+
+        .lock-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .lock-title {
+            font-family: 'Amiri', serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .lock-subtitle {
+            font-size: 18px;
+            color: var(--dark-pink);
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 18px 25px;
+            font-size: 18px;
+            font-family: 'Cairo', sans-serif;
+            border: 2px solid var(--light-pink);
+            border-radius: 50px;
+            outline: none;
+            text-align: center;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .password-input:focus {
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 20px var(--shadow-pink);
+        }
+
+        .unlock-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 20px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px var(--shadow-pink);
+        }
+
+        .unlock-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px var(--shadow-pink);
+        }
+
+        .unlock-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-msg {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Content Card */
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 50px 40px;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px var(--shadow-pink);
+            max-width: 600px;
+            width: 100%;
+            border: 2px solid rgba(233, 30, 99, 0.2);
+            text-align: center;
+        }
+
+        .content-title {
+            font-family: 'Amiri', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .content-text {
+            font-family: 'Amiri', serif;
+            font-size: 24px;
+            line-height: 2.2;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .action-btn {
+            margin-top: 40px;
+            padding: 18px 50px;
+            font-size: 20px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px var(--shadow-pink);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px var(--shadow-pink);
+        }
+
+        /* Memories Page */
+        .memories-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 50px 30px;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px var(--shadow-pink);
+            max-width: 800px;
+            width: 100%;
+            border: 2px solid rgba(233, 30, 99, 0.2);
+        }
+
+        .memories-title {
+            font-family: 'Amiri', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-pink);
+            text-align: center;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .memory-item {
+            margin-bottom: 40px;
+            text-align: center;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .memory-image {
-          height: 250px;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 3px solid white;
         }
-      }
+
+        .video-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 3px solid white;
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+        }
+
+        .video-container iframe,
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .memory-caption {
+            font-family: 'Amiri', serif;
+            font-size: 22px;
+            color: var(--dark-pink);
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .quote-text {
+            font-family: 'Amiri', serif;
+            font-size: 20px;
+            color: #555;
+            margin: 15px 0;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* Restart Page */
+        .restart-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 60px 40px;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px var(--shadow-pink);
+            max-width: 600px;
+            width: 100%;
+            border: 2px solid rgba(233, 30, 99, 0.2);
+            text-align: center;
+        }
+
+        .restart-name {
+            font-family: 'Amiri', serif;
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin-bottom: 40px;
+        }
+
+        .restart-btn {
+            margin-top: 50px;
+            padding: 18px 60px;
+            font-size: 22px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px var(--shadow-pink);
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 12px 30px var(--shadow-pink);
+        }
+
+        .watermark {
+            font-family: 'Amiri', serif;
+            font-size: 16px;
+            color: var(--dark-pink);
+            margin-top: 30px;
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .lock-screen, .content-card, .memories-card, .restart-card {
+                padding: 40px 25px;
+                border-radius: 30px;
+            }
+
+            .lock-title, .content-title, .memories-title, .restart-name {
+                font-size: 36px;
+            }
+
+            .content-text, .memory-caption, .quote-text {
+                font-size: 18px;
+            }
+
+            .memory-image {
+                height: 250px;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <!-- Floating Hearts Background -->
     <div class="hearts-bg" id="heartsContainer"></div>
 
     <!-- Page 1: Lock Screen -->
     <div class="page active" id="lockPage">
-      <div class="container">
-        <div class="lock-screen">
-          <div class="lock-icon">🔒</div>
-          <h1 class="lock-title">Enter Password</h1>
-          <p class="lock-subtitle">💝 Unlock</p>
-          <input
-            type="password"
-            class="password-input"
-            id="passwordInput"
-            placeholder="أدخل كلمة المرور"
-          />
-          <button class="unlock-btn" onclick="checkPassword()">دخول</button>
-          <p class="error-msg" id="errorMsg">كلمة المرور غير صحيحة ❌</p>
+        <div class="container">
+            <div class="lock-screen">
+                <div class="lock-icon">🔒</div>
+                <h1 class="lock-title">Enter Password</h1>
+                <p class="lock-subtitle">💝 Unlock</p>
+                <input type="password" class="password-input" id="passwordInput" placeholder="أدخل كلمة المرور">
+                <button class="unlock-btn" onclick="checkPassword()">دخول</button>
+                <p class="error-msg" id="errorMsg">كلمة المرور غير صحيحة ❌</p>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- Page 2: نور عيني -->
     <div class="page" id="page2">
-      <div class="container">
-        <div class="content-card">
-          <h2 class="content-title">نور عيني</h2>
-          <p class="content-text">عايز اقولك اني بحبك وبقدرش ابي اضايقك</p>
-          <p class="content-text">انتي الحاجة الحلو ليا انتي كل حاجة ليا</p>
-          <p class="content-text">أنت سبب فرحي انتي سبب ضحكتي انتي</p>
-          <p class="content-text">سبب كل حاجه حلوه</p>
-          <p class="content-text">بحبك</p>
-          <p class="content-text">تعالي نشوف كام ميموري كده مع بعض</p>
-          <button class="action-btn" onclick="nextPage()">
-            <span>✨ start journey ✨</span>
-          </button>
+        <div class="container">
+            <div class="content-card">
+                <h2 class="content-title">نور عيني</h2>
+                <p class="content-text">عايز اقولك اني بحبك وبقدرش ابي اضايقك</p>
+                <p class="content-text">انتي الحاجة الحلو ليا انتي كل حاجة ليا</p>
+                <p class="content-text">أنت سبب فرحي انتي سبب ضحكتي انتي</p>
+                <p class="content-text">سبب كل حاجه حلوه</p>
+                <p class="content-text">بحبك</p>
+                <p class="content-text">تعالي نشوف كام ميموري كده مع بعض</p>
+                <button class="action-btn" onclick="nextPage()">
+                    <span>✨ start journey ✨</span>
+                </button>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- Page 3: Memories -->
     <div class="page" id="page3">
-      <div class="container">
-        <div class="memories-card">
-          <h2 class="memories-title">memories</h2>
+        <div class="container">
+            <div class="memories-card">
+                <h2 class="memories-title">memories</h2>
+                
+                <div class="memory-item">
+                    <p class="quote-text">💝 الأغنية اللي بنحبها 💝</p>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/fGFB29lQ-Vs" allowfullscreen></iframe>
+                    </div>
+                    <p class="memory-caption">لو عاد بي الزمان الف مره ساختارك في كل مره 💙💕💙</p>
+                    <p class="quote-text" style="font-size: 18px;">If time returns to me a thousand times, Will choose you every time💙💕💙</p>
+                </div>
 
-          <div class="memory-item">
-            <p class="quote-text">💝 الأغنية اللي بنحبها 💝</p>
-            <div class="video-container">
-              <video controls style="width: 100%; height: auto">
-                <source src="https://youtu.be/fGFB29lQ-Vs?si=MgV-0YFQCM2Xl8rs" type="video/mp4" />
-              </video>
+                <div class="memory-item">
+                    <p class="memory-caption">تقدر تحط اي فيديو ليكم مكانه</p>
+                </div>
+
+                <div class="memory-item">
+                    <p class="memory-caption">أول مره نتكلم مع بعض</p>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/lC_oE025a1g" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="memory-item">
+                    <p class="memory-caption">ذاكره اليوم ده</p>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/lC_oE025a1g" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="memory-item">
+                    <p class="quote-text">✨ في حاجة مهمة عايز اقولهالك ✨</p>
+                    <button class="action-btn" onclick="nextPage()">
+                        <span>💕 دوس هنا 💕</span>
+                    </button>
+                </div>
             </div>
-            <p class="memory-caption">
-              لو عاد بي الزمان الف مره ساختارك في كل مره 💙💕💙
-            </p>
-            <p class="quote-text" style="font-size: 18px">
-              If time returns to me a thousand times, Will choose you every
-              time💙💕💙
-            </p>
-          </div>
-
-          <div class="memory-item">
-            <p class="memory-caption">تقدر تحط اي فيديو ليكم مكانه</p>
-          </div>
-
-          <div class="memory-item">
-            <p class="memory-caption">أول مره نتكلم مع بعض</p>
-            <div class="video-container">
-              <video controls style="width: 100%; height: auto">
-                <source src="https://www.youtube.com/watch?v=lC_oE025a1g&list=RDlC_oE025a1g&start_radio=1" type="video/mp4" />
-              </video>
-            </div>
-          </div>
-
-          <div class="memory-item">
-            <p class="memory-caption">ذاكره اليوم ده</p>
-            <div class="video-container">
-              <video controls style="width: 100%; height: auto">
-                <source src="https://www.youtube.com/watch?v=lC_oE025a1g&list=RDlC_oE025a1g&start_radio=1" type="video/mp4" />
-              </video>
-            </div>
-          </div>
-
-          <div class="memory-item">
-            <p class="quote-text">✨ في حاجة مهمة عايز اقولهالك ✨</p>
-            <button class="action-btn" onclick="nextPage()">
-              <span>💕 دوس هنا 💕</span>
-            </button>
-          </div>
         </div>
-      </div>
     </div>
 
     <!-- Page 4: Final Message -->
     <div class="page" id="page4">
-      <div class="container">
-        <div class="restart-card">
-          <h2 class="restart-name">حبيبتي</h2>
-          <p class="content-text">بحبك ربنا يخليكي ليا</p>
-          <p class="content-text">ومهما الدنيا تبعدنا هفضل ديما سوا</p>
-          <p class="content-text">انتي كل حاجه ليا</p>
-          <p class="content-text">ومقدرش اني ازعلك</p>
-          <p class="content-text">وحشتيني</p>
-          <button class="restart-btn" onclick="restart()">restart</button>
-          <p class="watermark">Lovelyyy</p>
+        <div class="container">
+            <div class="restart-card">
+                <h2 class="restart-name">حبيبتي</h2>
+                <p class="content-text">بحبك ربنا يخليكي ليا</p>
+                <p class="content-text">ومهما الدنيا تبعدنا هفضل ديما سوا</p>
+                <p class="content-text">انتي كل حاجه ليا</p>
+                <p class="content-text">ومقدرش اني ازعلك</p>
+                <p class="content-text">وحشتيني</p>
+                <button class="restart-btn" onclick="restart()">restart</button>
+                <p class="watermark">Lovelyyy</p>
+            </div>
         </div>
-      </div>
     </div>
 
     <script>
-      // Create floating hearts
-      function createHearts() {
-        const heartsContainer = document.getElementById("heartsContainer");
-        const heartEmojis = ["💕", "💖", "💗", "💓", "💝", "❤️", "💞"];
-
-        for (let i = 0; i < 15; i++) {
-          const heart = document.createElement("div");
-          heart.className = "heart-float";
-          heart.textContent =
-            heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-          heart.style.left = Math.random() * 100 + "%";
-          heart.style.animationDelay = Math.random() * 10 + "s";
-          heart.style.animationDuration = Math.random() * 5 + 8 + "s";
-          heartsContainer.appendChild(heart);
+        // Create floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('heartsContainer');
+            const heartEmojis = ['💕', '💖', '💗', '💓', '💝', '❤️', '💞'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-float';
+                heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                heart.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                heartsContainer.appendChild(heart);
+            }
         }
-      }
 
-      createHearts();
+        createHearts();
 
-      // Password check
-      function checkPassword() {
-        const input = document.getElementById("passwordInput");
-        const errorMsg = document.getElementById("errorMsg");
-        const password = input.value.trim();
-
-        // Accept multiple formats: 4/10, 04/10, 4-10, etc.
-        if (
-          password === "4/10" ||
-          password === "04/10" ||
-          password === "4-10" ||
-          password === "04-10" ||
-          password === "410" ||
-          password === "0410"
-        ) {
-          errorMsg.style.display = "none";
-          changePage("lockPage", "page2");
-        } else {
-          errorMsg.style.display = "block";
-          input.value = "";
-          input.style.animation = "shake 0.5s";
-          setTimeout(() => {
-            input.style.animation = "";
-          }, 500);
+        // Password check
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            const errorMsg = document.getElementById('errorMsg');
+            const password = input.value.trim();
+            
+            // Accept multiple formats: 4/10, 04/10, 4-10, etc.
+            if (password === '4/10' || password === '04/10' || password === '4-10' || password === '04-10' || password === '410' || password === '0410') {
+                errorMsg.style.display = 'none';
+                changePage('lockPage', 'page2');
+            } else {
+                errorMsg.style.display = 'block';
+                input.value = '';
+                input.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 500);
+            }
         }
-      }
 
-      // Allow Enter key to submit password
-      document
-        .getElementById("passwordInput")
-        .addEventListener("keypress", function (e) {
-          if (e.key === "Enter") {
-            checkPassword();
-          }
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
         });
 
-      // Shake animation for wrong password
-      const style = document.createElement("style");
-      style.textContent = `
+        // Shake animation for wrong password
+        const style = document.createElement('style');
+        style.textContent = `
             @keyframes shake {
                 0%, 100% { transform: translateX(0); }
                 25% { transform: translateX(-10px); }
                 75% { transform: translateX(10px); }
             }
         `;
-      document.head.appendChild(style);
+        document.head.appendChild(style);
 
-      // Change page
-      function changePage(currentId, nextId) {
-        const current = document.getElementById(currentId);
-        const next = document.getElementById(nextId);
-
-        current.classList.remove("active");
-        next.classList.add("active");
-      }
-
-      // Next page navigation
-      let currentPageNum = 1;
-      function nextPage() {
-        currentPageNum++;
-        if (currentPageNum === 2) {
-          changePage("lockPage", "page2");
-        } else if (currentPageNum === 3) {
-          changePage("page2", "page3");
-        } else if (currentPageNum === 4) {
-          changePage("page3", "page4");
+        // Change page
+        function changePage(currentId, nextId) {
+            const current = document.getElementById(currentId);
+            const next = document.getElementById(nextId);
+            
+            current.classList.remove('active');
+            next.classList.add('active');
         }
-      }
 
-      // Restart
-      function restart() {
-        currentPageNum = 1;
-        changePage("page4", "lockPage");
-        document.getElementById("passwordInput").value = "";
-        document.getElementById("errorMsg").style.display = "none";
-      }
+        // Next page navigation
+        let currentPageNum = 1;
+        function nextPage() {
+            currentPageNum++;
+            if (currentPageNum === 2) {
+                changePage('lockPage', 'page2');
+            } else if (currentPageNum === 3) {
+                changePage('page2', 'page3');
+            } else if (currentPageNum === 4) {
+                changePage('page3', 'page4');
+            }
+        }
+
+        // Restart
+        function restart() {
+            currentPageNum = 1;
+            changePage('page4', 'lockPage');
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('errorMsg').style.display = 'none';
+        }
     </script>
-  </body>
+</body>
 </html>
